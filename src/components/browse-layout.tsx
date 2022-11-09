@@ -1,53 +1,48 @@
-import type { FC, ReactNode } from 'react';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import { Box, Button, Container, Divider, Grid, Typography } from '@mui/material';
-import { ArrowLeft as ArrowLeftIcon } from '../icons/arrow-left';
+import type { FC, ReactNode } from "react";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { ArrowLeft as ArrowLeftIcon } from "../icons/arrow-left";
 
 interface BrowseLayoutProps {
   children: ReactNode;
 }
 
-const getTitle = (pathname: string): string => pathname
-  .split('/')
-  .pop()!
-  .split('-')
-  .map((word) => word[0].toUpperCase() + word.slice(1))
-  .join(' ');
+const getTitle = (pathname: string): string =>
+  pathname
+    .split("/")
+    .pop()!
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
 
 export const BrowseLayout: FC<BrowseLayoutProps> = (props) => {
   const { children } = props;
   const router = useRouter();
-  const isBase = router.pathname === '/browse';
-  const title = isBase
-    ? 'Browse components'
-    : getTitle(router.pathname);
+  const isBase = router.pathname === "/browse";
+  const title = isBase ? "Browse components" : getTitle(router.pathname);
 
   return (
     <>
       <Box
         sx={{
-          backgroundColor: 'background.default',
-          py: 6
+          backgroundColor: "background.default",
+          py: 6,
         }}
       >
         <Container maxWidth="lg">
-          <Grid
-            alignItems="center"
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+          <Grid alignItems="center" container spacing={3}>
+            <Grid item md={6} xs={12}>
               {!isBase && (
-                <NextLink
-                  href="/browse"
-                  passHref
-                >
+                <NextLink href="/browse" passHref>
                   <Button
                     component="a"
                     startIcon={<ArrowLeftIcon fontSize="small" />}
@@ -57,16 +52,15 @@ export const BrowseLayout: FC<BrowseLayoutProps> = (props) => {
                   </Button>
                 </NextLink>
               )}
-              <Typography variant="h1">
-                {title}
-              </Typography>
+              <Typography variant="h1">{title}</Typography>
               {isBase && (
                 <Typography
                   color="textSecondary"
                   sx={{ mt: 1 }}
                   variant="body1"
                 >
-                  Browse through over 100 individual components and over 35 screens
+                  Browse through over 100 individual components and over 35
+                  screens
                 </Typography>
               )}
             </Grid>
@@ -76,16 +70,13 @@ export const BrowseLayout: FC<BrowseLayoutProps> = (props) => {
               xs={12}
               sx={{
                 display: {
-                  md: 'flex',
-                  xs: 'none'
+                  md: "flex",
+                  xs: "none",
                 },
-                justifyContent: 'center'
+                justifyContent: "center",
               }}
             >
-              <img
-                alt="Components"
-                src="/static/browse/hero.svg"
-              />
+              <img alt="Components" src="/browse/hero.svg" />
             </Grid>
           </Grid>
         </Container>
@@ -97,5 +88,5 @@ export const BrowseLayout: FC<BrowseLayoutProps> = (props) => {
 };
 
 BrowseLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

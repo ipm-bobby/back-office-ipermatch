@@ -1,10 +1,18 @@
-import type { FC } from 'react';
-import { useRouter } from 'next/router';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import { Alert, Box, Button, Divider, FormHelperText, TextField, Typography } from '@mui/material';
-import { useAuth } from '../../hooks/use-auth';
-import { useMounted } from '../../hooks/use-mounted';
+import type { FC } from "react";
+import { useRouter } from "next/router";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import {
+  Alert,
+  Box,
+  Button,
+  Divider,
+  FormHelperText,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useAuth } from "../../hooks/use-auth";
+import { useMounted } from "../../hooks/use-mounted";
 
 export const FirebaseLogin: FC = (props) => {
   const isMounted = useMounted();
@@ -12,27 +20,24 @@ export const FirebaseLogin: FC = (props) => {
   const { signInWithEmailAndPassword, signInWithGoogle } = useAuth();
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123!',
-      submit: null
+      email: "demo@devias.io",
+      password: "Password123!",
+      submit: null,
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
+      email: Yup.string()
+        .email("Must be a valid email")
         .max(255)
-        .required('Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required('Password is required')
+        .required("Email is required"),
+      password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: async (values, helpers): Promise<void> => {
       try {
         await signInWithEmailAndPassword(values.email, values.password);
 
         if (isMounted()) {
-          const returnUrl = (router.query.returnUrl as string | undefined) || '/dashboard';
+          const returnUrl =
+            (router.query.returnUrl as string | undefined) || "/dashboard";
           router.push(returnUrl).catch(console.error);
         }
       } catch (err) {
@@ -44,7 +49,7 @@ export const FirebaseLogin: FC = (props) => {
           helpers.setSubmitting(false);
         }
       }
-    }
+    },
   });
 
   const handleGoogleClick = async (): Promise<void> => {
@@ -52,7 +57,8 @@ export const FirebaseLogin: FC = (props) => {
       await signInWithGoogle();
 
       if (isMounted()) {
-        const returnUrl = (router.query.returnUrl as string | undefined) || '/dashboard';
+        const returnUrl =
+          (router.query.returnUrl as string | undefined) || "/dashboard";
         router.push(returnUrl).catch(console.error);
       }
     } catch (err) {
@@ -67,48 +73,41 @@ export const FirebaseLogin: FC = (props) => {
         onClick={handleGoogleClick}
         size="large"
         sx={{
-          backgroundColor: 'common.white',
-          color: 'common.black',
-          '&:hover': {
-            backgroundColor: 'common.white',
-            color: 'common.black'
-          }
+          backgroundColor: "common.white",
+          color: "common.black",
+          "&:hover": {
+            backgroundColor: "common.white",
+            color: "common.black",
+          },
         }}
         variant="contained"
       >
         <Box
           alt="Google"
           component="img"
-          src="/static/icons/google.svg"
+          src="/icons/google.svg"
           sx={{ mr: 1 }}
         />
         Google
       </Button>
       <Box
         sx={{
-          alignItems: 'center',
-          display: 'flex',
-          mt: 2
+          alignItems: "center",
+          display: "flex",
+          mt: 2,
         }}
       >
         <Box sx={{ flexGrow: 1 }}>
           <Divider orientation="horizontal" />
         </Box>
-        <Typography
-          color="textSecondary"
-          sx={{ m: 2 }}
-          variant="body1"
-        >
+        <Typography color="textSecondary" sx={{ m: 2 }} variant="body1">
           OR
         </Typography>
         <Box sx={{ flexGrow: 1 }}>
           <Divider orientation="horizontal" />
         </Box>
       </Box>
-      <form
-        noValidate
-        onSubmit={formik.handleSubmit}
-      >
+      <form noValidate onSubmit={formik.handleSubmit}>
         <TextField
           error={Boolean(formik.touched.email && formik.errors.email)}
           fullWidth
@@ -154,13 +153,7 @@ export const FirebaseLogin: FC = (props) => {
         <Box sx={{ mt: 2 }}>
           <Alert severity="info">
             <div>
-              You can use
-              {' '}
-              <b>demo@devias.io</b>
-              {' '}
-              and password
-              {' '}
-              <b>Password123!</b>
+              You can use <b>demo@devias.io</b> and password <b>Password123!</b>
             </div>
           </Alert>
         </Box>

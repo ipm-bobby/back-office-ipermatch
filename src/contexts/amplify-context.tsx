@@ -1,14 +1,14 @@
-import type { FC, ReactNode } from 'react';
-import { createContext, useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
-import Auth from '@aws-amplify/auth';
-import { amplifyConfig } from '../config';
-import type { User } from '../types/user';
+import type { FC, ReactNode } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import PropTypes from "prop-types";
+import Auth from "@aws-amplify/auth";
+import { amplifyConfig } from "../config";
+import type { User } from "../types/user";
 
 Auth.configure({
   userPoolId: amplifyConfig.aws_user_pools_id,
   userPoolWebClientId: amplifyConfig.aws_user_pools_web_client_id,
-  region: amplifyConfig.aws_cognito_region
+  region: amplifyConfig.aws_cognito_region,
 });
 
 interface State {
@@ -18,7 +18,7 @@ interface State {
 }
 
 export interface AuthContextValue extends State {
-  platform: 'Amplify';
+  platform: "Amplify";
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
@@ -37,9 +37,9 @@ interface AuthProviderProps {
 }
 
 enum ActionType {
-  INITIALIZE = 'INITIALIZE',
-  LOGIN = 'LOGIN',
-  LOGOUT = 'LOGOUT',
+  INITIALIZE = "INITIALIZE",
+  LOGIN = "LOGIN",
+  LOGOUT = "LOGOUT",
 }
 
 type InitializeAction = {
@@ -59,19 +59,16 @@ type LoginAction = {
 
 type LogoutAction = {
   type: ActionType.LOGOUT;
-}
+};
 
-type Action =
-  | InitializeAction
-  | LoginAction
-  | LogoutAction;
+type Action = InitializeAction | LoginAction | LogoutAction;
 
 type Handler = (state: State, action: any) => State;
 
 const initialState: State = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null
+  user: null,
 };
 
 const handlers: Record<ActionType, Handler> = {
@@ -82,7 +79,7 @@ const handlers: Record<ActionType, Handler> = {
       ...state,
       isAuthenticated,
       isInitialized: true,
-      user
+      user,
     };
   },
   LOGIN: (state: State, action: LoginAction): State => {
@@ -91,30 +88,29 @@ const handlers: Record<ActionType, Handler> = {
     return {
       ...state,
       isAuthenticated: true,
-      user
+      user,
     };
   },
   LOGOUT: (state: State): State => ({
     ...state,
     isAuthenticated: false,
-    user: null
-  })
+    user: null,
+  }),
 };
 
-const reducer = (state: State, action: Action): State => (
-  handlers[action.type] ? handlers[action.type](state, action) : state
-);
+const reducer = (state: State, action: Action): State =>
+  handlers[action.type] ? handlers[action.type](state, action) : state;
 
 export const AuthContext = createContext<AuthContextValue>({
   ...initialState,
-  platform: 'Amplify',
+  platform: "Amplify",
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
   verifyCode: () => Promise.resolve(),
   resendCode: () => Promise.resolve(),
   passwordRecovery: () => Promise.resolve(),
-  passwordReset: () => Promise.resolve()
+  passwordReset: () => Promise.resolve(),
 });
 
 export const AuthProvider: FC<AuthProviderProps> = (props) => {
@@ -136,20 +132,20 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
             isAuthenticated: true,
             user: {
               id: user.sub,
-              avatar: '/static/mock-images/avatars/avatar-anika_visser.png',
+              avatar: "/mock-images/avatars/avatar-anika_visser.png",
               email: user.attributes.email,
-              name: 'Anika Visser',
-              plan: 'Premium'
-            }
-          }
+              name: "Anika Visser",
+              plan: "Premium",
+            },
+          },
         });
       } catch (error) {
         dispatch({
           type: ActionType.INITIALIZE,
           payload: {
             isAuthenticated: false,
-            user: null
-          }
+            user: null,
+          },
         });
       }
     };
@@ -161,7 +157,9 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     const user = await Auth.signIn(email, password);
 
     if (user.challengeName) {
-      console.error(`Unable to login, because challenge "${user.challengeName}" is mandated and we did not handle this case.`);
+      console.error(
+        `Unable to login, because challenge "${user.challengeName}" is mandated and we did not handle this case.`
+      );
       return;
     }
 
@@ -170,19 +168,19 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
       payload: {
         user: {
           id: user.attributes.sub,
-          avatar: '/static/mock-images/avatars/avatar-anika_visser.png',
+          avatar: "/mock-images/avatars/avatar-anika_visser.png",
           email: user.attributes.email,
-          name: 'Anika Visser',
-          plan: 'Premium'
-        }
-      }
+          name: "Anika Visser",
+          plan: "Premium",
+        },
+      },
     });
   };
 
   const logout = async (): Promise<void> => {
     await Auth.signOut();
     dispatch({
-      type: ActionType.LOGOUT
+      type: ActionType.LOGOUT,
     });
   };
 
@@ -190,7 +188,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     await Auth.signUp({
       username: email,
       password,
-      attributes: { email }
+      attributes: { email },
     });
   };
 
@@ -218,14 +216,14 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     <AuthContext.Provider
       value={{
         ...state,
-        platform: 'Amplify',
+        platform: "Amplify",
         login,
         logout,
         register,
         verifyCode,
         resendCode,
         passwordRecovery,
-        passwordReset
+        passwordReset,
       }}
     >
       {children}
@@ -234,7 +232,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export const AuthConsumer = AuthContext.Consumer;

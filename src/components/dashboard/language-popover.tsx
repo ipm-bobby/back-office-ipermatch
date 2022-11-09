@@ -1,8 +1,15 @@
-import type { FC } from 'react';
-import PropTypes from 'prop-types';
-import { toast } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import { Box, ListItemIcon, ListItemText, MenuItem, Popover, Typography } from '@mui/material';
+import type { FC } from "react";
+import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import {
+  Box,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  Popover,
+  Typography,
+} from "@mui/material";
 
 interface LanguagePopoverProps {
   anchorEl: null | Element;
@@ -10,28 +17,28 @@ interface LanguagePopoverProps {
   open?: boolean;
 }
 
-type Language = 'en' | 'de' | 'es';
+type Language = "en" | "de" | "es";
 
 type LanguageOptions = {
   [key in Language]: {
     icon: string;
     label: string;
   };
-}
+};
 
 const languageOptions: LanguageOptions = {
   en: {
-    icon: '/static/icons/uk_flag.svg',
-    label: 'English'
+    icon: "/icons/uk_flag.svg",
+    label: "English",
   },
   de: {
-    icon: '/static/icons/de_flag.svg',
-    label: 'German'
+    icon: "/icons/de_flag.svg",
+    label: "German",
   },
   es: {
-    icon: '/static/icons/es_flag.svg',
-    label: 'Spanish'
-  }
+    icon: "/icons/es_flag.svg",
+    label: "Spanish",
+  },
 };
 
 export const LanguagePopover: FC<LanguagePopoverProps> = (props) => {
@@ -41,15 +48,15 @@ export const LanguagePopover: FC<LanguagePopoverProps> = (props) => {
   const handleChange = async (language: Language): Promise<void> => {
     onClose?.();
     await i18n.changeLanguage(language);
-    toast.success(t('Language changed') as string);
+    toast.success(t("Language changed") as string);
   };
 
   return (
     <Popover
       anchorEl={anchorEl}
       anchorOrigin={{
-        horizontal: 'center',
-        vertical: 'bottom'
+        horizontal: "center",
+        vertical: "bottom",
       }}
       keepMounted
       onClose={onClose}
@@ -59,19 +66,16 @@ export const LanguagePopover: FC<LanguagePopoverProps> = (props) => {
       {...other}
     >
       {(Object.keys(languageOptions) as Language[]).map((language) => (
-        <MenuItem
-          onClick={() => handleChange(language)}
-          key={language}
-        >
+        <MenuItem onClick={() => handleChange(language)} key={language}>
           <ListItemIcon>
             <Box
               sx={{
-                display: 'flex',
+                display: "flex",
                 height: 20,
                 width: 20,
-                '& img': {
-                  width: '100%'
-                }
+                "& img": {
+                  width: "100%",
+                },
               }}
             >
               <img
@@ -81,11 +85,11 @@ export const LanguagePopover: FC<LanguagePopoverProps> = (props) => {
             </Box>
           </ListItemIcon>
           <ListItemText
-            primary={(
+            primary={
               <Typography variant="subtitle2">
                 {languageOptions[language].label}
               </Typography>
-            )}
+            }
           />
         </MenuItem>
       ))}
@@ -96,5 +100,5 @@ export const LanguagePopover: FC<LanguagePopoverProps> = (props) => {
 LanguagePopover.propTypes = {
   anchorEl: PropTypes.any,
   onClose: PropTypes.func,
-  open: PropTypes.bool
+  open: PropTypes.bool,
 };

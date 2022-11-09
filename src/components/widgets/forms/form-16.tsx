@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 import {
   Box,
   Button,
@@ -9,67 +9,56 @@ import {
   Divider,
   Link,
   TextField,
-  Typography
-} from '@mui/material';
+  Typography,
+} from "@mui/material";
 
 export const Form16: FC = () => (
   <Box
     sx={{
-      backgroundColor: 'background.default',
-      minHeight: '100%',
-      p: 3
+      backgroundColor: "background.default",
+      minHeight: "100%",
+      p: 3,
     }}
   >
     <Container maxWidth="sm">
       <Card>
         <CardContent
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
+            display: "flex",
+            flexDirection: "column",
             minHeight: 400,
-            p: 4
+            p: 4,
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between'
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
             <div>
-              <Typography variant="h4">
-                Register
-              </Typography>
-              <Typography
-                color="textSecondary"
-                sx={{ mt: 1 }}
-                variant="body2"
-              >
+              <Typography variant="h4">Register</Typography>
+              <Typography color="textSecondary" sx={{ mt: 1 }} variant="body2">
                 Register on the internal platform
               </Typography>
             </div>
             <img
               alt="Amplify"
-              src="/static/icons/amplify.svg"
+              src="/icons/amplify.svg"
               style={{
-                maxWidth: '53.62px',
-                width: '100%'
+                maxWidth: "53.62px",
+                width: "100%",
               }}
             />
           </Box>
           <Box
             sx={{
               flexGrow: 1,
-              mt: 3
+              mt: 3,
             }}
           >
             <form onSubmit={(event) => event.preventDefault()}>
-              <TextField
-                fullWidth
-                label="Name"
-                margin="normal"
-                name="name"
-              />
+              <TextField fullWidth label="Name" margin="normal" name="name" />
               <TextField
                 fullWidth
                 label="Email Address"
@@ -86,22 +75,15 @@ export const Form16: FC = () => (
               />
               <Box
                 sx={{
-                  alignItems: 'center',
-                  display: 'flex',
+                  alignItems: "center",
+                  display: "flex",
                   ml: -1,
-                  mt: 2
+                  mt: 2,
                 }}
               >
                 <Checkbox name="policy" />
-                <Typography
-                  color="textSecondary"
-                  variant="body2"
-                >
-                  I have read the
-                  {' '}
-                  <Link href="#">
-                    Terms and Conditions
-                  </Link>
+                <Typography color="textSecondary" variant="body2">
+                  I have read the <Link href="#">Terms and Conditions</Link>
                 </Typography>
               </Box>
               <Box sx={{ mt: 2 }}>
@@ -117,11 +99,7 @@ export const Form16: FC = () => (
             </form>
           </Box>
           <Divider sx={{ my: 3 }} />
-          <Link
-            color="textSecondary"
-            href="#"
-            variant="body2"
-          >
+          <Link color="textSecondary" href="#" variant="body2">
             Having an account
           </Link>
         </CardContent>

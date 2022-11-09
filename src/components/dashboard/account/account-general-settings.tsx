@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 import {
   Avatar,
   Box,
@@ -9,47 +9,31 @@ import {
   Grid,
   Switch,
   TextField,
-  Typography
-} from '@mui/material';
-import { UserCircle as UserCircleIcon } from '../../../icons/user-circle';
+  Typography,
+} from "@mui/material";
+import { UserCircle as UserCircleIcon } from "../../../icons/user-circle";
 
 export const AccountGeneralSettings: FC = (props) => {
   // To get the user from the authContext, you can use
   // `const { user } = useAuth();`
   const user = {
-    avatar: '/static/mock-images/avatars/avatar-anika_visser.png',
-    name: 'Anika Visser'
+    avatar: "/mock-images/avatars/avatar-anika_visser.png",
+    name: "Anika Visser",
   };
 
   return (
-    <Box
-      sx={{ mt: 4 }}
-      {...props}
-    >
+    <Box sx={{ mt: 4 }} {...props}>
       <Card>
         <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={4}
-              xs={12}
-            >
-              <Typography variant="h6">
-                Basic details
-              </Typography>
+          <Grid container spacing={3}>
+            <Grid item md={4} xs={12}>
+              <Typography variant="h6">Basic details</Typography>
             </Grid>
-            <Grid
-              item
-              md={8}
-              xs={12}
-            >
+            <Grid item md={8} xs={12}>
               <Box
                 sx={{
-                  alignItems: 'center',
-                  display: 'flex'
+                  alignItems: "center",
+                  display: "flex",
                 }}
               >
                 <Avatar
@@ -57,20 +41,18 @@ export const AccountGeneralSettings: FC = (props) => {
                   sx={{
                     height: 64,
                     mr: 2,
-                    width: 64
+                    width: 64,
                   }}
                 >
                   <UserCircleIcon fontSize="small" />
                 </Avatar>
-                <Button>
-                  Change
-                </Button>
+                <Button>Change</Button>
               </Box>
               <Box
                 sx={{
-                  display: 'flex',
+                  display: "flex",
                   mt: 3,
-                  alignItems: 'center'
+                  alignItems: "center",
                 }}
               >
                 <TextField
@@ -79,18 +61,16 @@ export const AccountGeneralSettings: FC = (props) => {
                   size="small"
                   sx={{
                     flexGrow: 1,
-                    mr: 3
+                    mr: 3,
                   }}
                 />
-                <Button>
-                  Save
-                </Button>
+                <Button>Save</Button>
               </Box>
               <Box
                 sx={{
-                  display: 'flex',
+                  display: "flex",
                   mt: 3,
-                  alignItems: 'center'
+                  alignItems: "center",
                 }}
               >
                 <TextField
@@ -102,14 +82,12 @@ export const AccountGeneralSettings: FC = (props) => {
                   sx={{
                     flexGrow: 1,
                     mr: 3,
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderStyle: 'dashed'
-                    }
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderStyle: "dashed",
+                    },
                   }}
                 />
-                <Button>
-                  Edit
-                </Button>
+                <Button>Edit</Button>
               </Box>
             </Grid>
           </Grid>
@@ -117,31 +95,17 @@ export const AccountGeneralSettings: FC = (props) => {
       </Card>
       <Card sx={{ mt: 4 }}>
         <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={4}
-              xs={12}
-            >
-              <Typography variant="h6">
-                Public profile
-              </Typography>
+          <Grid container spacing={3}>
+            <Grid item md={4} xs={12}>
+              <Typography variant="h6">Public profile</Typography>
             </Grid>
-            <Grid
-              item
-              md={8}
-              sm={12}
-              xs={12}
-            >
+            <Grid item md={8} sm={12} xs={12}>
               <Box
                 sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  mb: 3
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mb: 3,
                 }}
               >
                 <div>
@@ -153,8 +117,8 @@ export const AccountGeneralSettings: FC = (props) => {
                     sx={{ mt: 1 }}
                     variant="body2"
                   >
-                    Means that anyone viewing your profile will be able to see your contacts
-                    details.
+                    Means that anyone viewing your profile will be able to see
+                    your contacts details.
                   </Typography>
                 </div>
                 <Switch />
@@ -162,23 +126,21 @@ export const AccountGeneralSettings: FC = (props) => {
               <Divider />
               <Box
                 sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  mt: 3
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 3,
                 }}
               >
                 <div>
-                  <Typography variant="subtitle1">
-                    Available to hire
-                  </Typography>
+                  <Typography variant="subtitle1">Available to hire</Typography>
                   <Typography
                     color="textSecondary"
                     sx={{ mt: 1 }}
                     variant="body2"
                   >
-                    Toggling this will let your teammates know that you are available for
-                    acquiring new projects.
+                    Toggling this will let your teammates know that you are
+                    available for acquiring new projects.
                   </Typography>
                 </div>
                 <Switch defaultChecked />
@@ -189,34 +151,16 @@ export const AccountGeneralSettings: FC = (props) => {
       </Card>
       <Card sx={{ mt: 4 }}>
         <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={4}
-              xs={12}
-            >
-              <Typography variant="h6">
-                Delete Account
-              </Typography>
+          <Grid container spacing={3}>
+            <Grid item md={4} xs={12}>
+              <Typography variant="h6">Delete Account</Typography>
             </Grid>
-            <Grid
-              item
-              md={8}
-              xs={12}
-            >
-              <Typography
-                sx={{ mb: 3 }}
-                variant="subtitle1"
-              >
-                Delete your account and all of your source data. This is irreversible.
+            <Grid item md={8} xs={12}>
+              <Typography sx={{ mb: 3 }} variant="subtitle1">
+                Delete your account and all of your source data. This is
+                irreversible.
               </Typography>
-              <Button
-                color="error"
-                variant="outlined"
-              >
+              <Button color="error" variant="outlined">
                 Delete account
               </Button>
             </Grid>

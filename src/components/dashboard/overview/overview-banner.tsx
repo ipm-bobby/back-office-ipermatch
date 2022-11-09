@@ -1,6 +1,6 @@
-import type { FC } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Button, Card, Chip, Typography } from '@mui/material';
+import type { FC } from "react";
+import PropTypes from "prop-types";
+import { Box, Button, Card, Chip, Typography } from "@mui/material";
 
 interface OverviewBannerProps {
   onDismiss?: () => void;
@@ -12,15 +12,15 @@ export const OverviewBanner: FC<OverviewBannerProps> = (props) => {
   return (
     <Card
       sx={{
-        alignItems: 'center',
-        backgroundColor: 'primary.main',
-        color: 'primary.contrastText',
-        display: 'flex',
+        alignItems: "center",
+        backgroundColor: "primary.main",
+        color: "primary.contrastText",
+        display: "flex",
         flexDirection: {
-          xs: 'column',
-          md: 'row'
+          xs: "column",
+          md: "row",
         },
-        p: 4
+        p: 4,
       }}
       {...other}
     >
@@ -29,44 +29,27 @@ export const OverviewBanner: FC<OverviewBannerProps> = (props) => {
           mr: 4,
           width: 200,
           height: 200,
-          '& img': {
+          "& img": {
             height: 200,
-            width: 'auto'
-          }
+            width: "auto",
+          },
         }}
       >
-        <img
-          alt=""
-          src="/static/banner-illustration.png"
-        />
+        <img alt="" src="/banner-illustration.png" />
       </Box>
       <div>
         <div>
-          <Chip
-            color="secondary"
-            label="New"
-          />
+          <Chip color="secondary" label="New" />
         </div>
-        <Typography
-          color="inherit"
-          sx={{ mt: 2 }}
-          variant="h4"
-        >
+        <Typography color="inherit" sx={{ mt: 2 }} variant="h4">
           Welcome to Material Kit Pro v5!
         </Typography>
-        <Typography
-          color="inherit"
-          sx={{ mt: 1 }}
-          variant="subtitle2"
-        >
-          Your dashboard has been improved! Explore new features like Notifications, Search, Jobs Platform and more.
+        <Typography color="inherit" sx={{ mt: 1 }} variant="subtitle2">
+          Your dashboard has been improved! Explore new features like
+          Notifications, Search, Jobs Platform and more.
         </Typography>
         <Box sx={{ mt: 2 }}>
-          <Button
-            color="secondary"
-            onClick={onDismiss}
-            variant="contained"
-          >
+          <Button color="secondary" onClick={onDismiss} variant="contained">
             Dismiss Banner
           </Button>
         </Box>
@@ -76,5 +59,5 @@ export const OverviewBanner: FC<OverviewBannerProps> = (props) => {
 };
 
 OverviewBanner.propTypes = {
-  onDismiss: PropTypes.func
+  onDismiss: PropTypes.func,
 };
