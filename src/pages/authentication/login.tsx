@@ -25,6 +25,8 @@ const platformIcons: { [key in Platform]: string } = {
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const auth = useAuth();
+  console.log(auth);
   const { platform }: { platform: Platform } = useAuth();
   const { disableGuard } = router.query;
 
@@ -35,7 +37,7 @@ const Login: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Login | Material Kit Pro</title>
+        <title>Login | Ipermatch Backoffice</title>
       </Head>
       <Box
         component="main"
@@ -46,7 +48,7 @@ const Login: NextPage = () => {
           minHeight: "100vh",
         }}
       >
-        <AuthBanner />
+        {/* <AuthBanner /> */}
         <Container
           maxWidth="sm"
           sx={{
@@ -118,7 +120,7 @@ const Login: NextPage = () => {
               {platform === "Firebase" && <FirebaseLogin />}
               {platform === "JWT" && <JWTLogin />}
             </Box>
-            <Divider sx={{ my: 3 }} />
+            {/* <Divider sx={{ my: 3 }} />
             <div>
               <NextLink
                 href={
@@ -132,7 +134,7 @@ const Login: NextPage = () => {
                   Create new account
                 </Link>
               </NextLink>
-            </div>
+            </div> */}
             {platform === "Amplify" && (
               <Box sx={{ mt: 1 }}>
                 <NextLink

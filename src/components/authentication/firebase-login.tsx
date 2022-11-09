@@ -17,11 +17,11 @@ import { useMounted } from "../../hooks/use-mounted";
 export const FirebaseLogin: FC = (props) => {
   const isMounted = useMounted();
   const router = useRouter();
-  const { signInWithEmailAndPassword, signInWithGoogle } = useAuth();
+  const { signInWithEmailAndPassword } = useAuth();
   const formik = useFormik({
     initialValues: {
-      email: "demo@devias.io",
-      password: "Password123!",
+      email: "",
+      password: "",
       submit: null,
     },
     validationSchema: Yup.object({
@@ -52,23 +52,23 @@ export const FirebaseLogin: FC = (props) => {
     },
   });
 
-  const handleGoogleClick = async (): Promise<void> => {
-    try {
-      await signInWithGoogle();
+  // const handleGoogleClick = async (): Promise<void> => {
+  //   try {
+  //     await signInWithGoogle();
 
-      if (isMounted()) {
-        const returnUrl =
-          (router.query.returnUrl as string | undefined) || "/dashboard";
-        router.push(returnUrl).catch(console.error);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //     if (isMounted()) {
+  //       const returnUrl =
+  //         (router.query.returnUrl as string | undefined) || "/dashboard";
+  //       router.push(returnUrl).catch(console.error);
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <div {...props}>
-      <Button
+      {/* <Button
         fullWidth
         onClick={handleGoogleClick}
         size="large"
@@ -89,7 +89,7 @@ export const FirebaseLogin: FC = (props) => {
           sx={{ mr: 1 }}
         />
         Google
-      </Button>
+      </Button> */}
       <Box
         sx={{
           alignItems: "center",
@@ -149,13 +149,6 @@ export const FirebaseLogin: FC = (props) => {
           >
             Log In
           </Button>
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          <Alert severity="info">
-            <div>
-              You can use <b>demo@devias.io</b> and password <b>Password123!</b>
-            </div>
-          </Alert>
         </Box>
       </form>
     </div>

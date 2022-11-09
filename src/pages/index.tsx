@@ -11,6 +11,7 @@ import { HomeFeatures } from "../components/home/home-features";
 import { HomeTestimonials } from "../components/home/home-testimonials";
 import { gtm } from "../lib/gtm";
 import { DashboardLayout } from "src/components/dashboard/dashboard-layout";
+import Login from "./authentication/login";
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -23,8 +24,9 @@ const Home: NextPage = () => {
         <title>Material Kit Pro</title>
       </Head>
       <main>
-        {/* <HomeHero />
-        <Divider />
+        <Login />
+        {/* <HomeHero /> */}
+        {/* <Divider />
         <HomeDevelopers />
         <Divider /> */}
         {/* <HomeDesigners />

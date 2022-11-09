@@ -1,6 +1,6 @@
-import type { FC, ReactNode } from 'react';
-import { createContext, useEffect, useReducer } from 'react';
-import PropTypes from 'prop-types';
+import type { FC, ReactNode } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import PropTypes from "prop-types";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -8,10 +8,10 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut
-} from 'firebase/auth';
-import { firebaseApp } from '../lib/firebase';
-import type { User } from '../types/user';
+  signOut,
+} from "firebase/auth";
+import { firebaseApp } from "../lib/firebase";
+import type { User } from "../types/user";
 
 const auth = getAuth(firebaseApp);
 
@@ -22,7 +22,7 @@ interface State {
 }
 
 export interface AuthContextValue extends State {
-  platform: 'Firebase';
+  platform: "Firebase";
   createUserWithEmailAndPassword: (
     email: string,
     password: string
@@ -37,7 +37,7 @@ interface AuthProviderProps {
 }
 
 enum ActionType {
-  AUTH_STATE_CHANGED = 'AUTH_STATE_CHANGED'
+  AUTH_STATE_CHANGED = "AUTH_STATE_CHANGED",
 }
 
 type AuthStateChangedAction = {
@@ -53,18 +53,18 @@ type Action = AuthStateChangedAction;
 const initialState: State = {
   isAuthenticated: false,
   isInitialized: false,
-  user: null
+  user: null,
 };
 
 const reducer = (state: State, action: Action): State => {
-  if (action.type === 'AUTH_STATE_CHANGED') {
+  if (action.type === "AUTH_STATE_CHANGED") {
     const { isAuthenticated, user } = action.payload;
 
     return {
       ...state,
       isAuthenticated,
       isInitialized: true,
-      user
+      user,
     };
   }
 
@@ -73,46 +73,57 @@ const reducer = (state: State, action: Action): State => {
 
 export const AuthContext = createContext<AuthContextValue>({
   ...initialState,
-  platform: 'Firebase',
+  platform: "Firebase",
   createUserWithEmailAndPassword: () => Promise.resolve(),
   signInWithEmailAndPassword: () => Promise.resolve(),
   signInWithGoogle: () => Promise.resolve(),
-  logout: () => Promise.resolve()
+  logout: () => Promise.resolve(),
 });
 
 export const AuthProvider: FC<AuthProviderProps> = (props) => {
   const { children } = props;
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // Here you should extract the complete user profile to make it available in your entire app.
-      // The auth state only provides basic information.
-      dispatch({
-        type: ActionType.AUTH_STATE_CHANGED,
-        payload: {
-          isAuthenticated: true,
-          user: {
-            id: user.uid,
-            avatar: user.photoURL || undefined,
-            email: user.email || 'anika.visser@devias.io',
-            name: 'Anika Visser',
-            plan: 'Premium'
-          }
-        }
-      });
-    } else {
-      dispatch({
-        type: ActionType.AUTH_STATE_CHANGED,
-        payload: {
-          isAuthenticated: false,
-          user: null
-        }
-      });
-    }
-  }), [dispatch]);
+  useEffect(
+    () =>
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          // Here you should extract the complete user profile to make it available in your entire app.
+          // The auth state only provides basic information.
+          const getAccessToken = async () => {
+            return await user.getIdToken();
+          };
 
-  const _signInWithEmailAndPassword = async (email: string, password: string): Promise<void> => {
+          dispatch({
+            type: ActionType.AUTH_STATE_CHANGED,
+            payload: {
+              isAuthenticated: true,
+              user: {
+                id: user.uid,
+                avatar: user.photoURL || undefined,
+                email: user.email || "anika.visser@devias.io",
+                accessToken: await user.getIdToken(),
+                name: user.displayName || "Admin Ipermatch",
+              },
+            },
+          });
+        } else {
+          dispatch({
+            type: ActionType.AUTH_STATE_CHANGED,
+            payload: {
+              isAuthenticated: false,
+              user: null,
+            },
+          });
+        }
+      }),
+    [dispatch]
+  );
+
+  const _signInWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ): Promise<void> => {
     await signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -122,8 +133,10 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     await signInWithPopup(auth, provider);
   };
 
-  const _createUserWithEmailAndPassword = async (email: string,
-    password: string): Promise<void> => {
+  const _createUserWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ): Promise<void> => {
     await createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -135,11 +148,11 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     <AuthContext.Provider
       value={{
         ...state,
-        platform: 'Firebase',
+        platform: "Firebase",
         createUserWithEmailAndPassword: _createUserWithEmailAndPassword,
         signInWithEmailAndPassword: _signInWithEmailAndPassword,
         signInWithGoogle,
-        logout
+        logout,
       }}
     >
       {children}
@@ -148,7 +161,7 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export const AuthConsumer = AuthContext.Consumer;

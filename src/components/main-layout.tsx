@@ -21,7 +21,7 @@ export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <MainLayoutRoot>
-      <MainNavbar onOpenSidebar={(): void => setIsSidebarOpen(true)} />
+      {/* <MainNavbar onOpenSidebar={(): void => setIsSidebarOpen(true)} /> */}
       <MainSidebar
         onClose={(): void => setIsSidebarOpen(false)}
         open={isSidebarOpen}
