@@ -1,0 +1,39 @@
+Consider 2 different user stories: operator with single market view and manager role with multiple marketplace overview.
+
+Standard, Gold and Premium Tier level support (J to get right names)
+
+Different Type of Marketplace within the same one (Amazon Food, Mercado Livre Food) - To explore single and multi view
+
+Overview: 
+- List of products / marketplaces
+		- With list of products, shipping deadline/process if item sold
+- POC details for each customer
+- ALERT PANEL (can be divided in multiple panels)
+		- Cancelled Products
+		- Delayed Products
+		- Shipping Issues
+		- Sales Problems
+		- Complains (B2C)
+- Trends Item Sold (each color / marketplace)
+
+Analytics (filter by specific timelines max 3):
+- Number of visits for the product / per marketplace
+- Number of Sales / per marketplace
+- Earnings on Sales / Costs on Sales with Total
+- Costs (Distribution + each one + Breakdown for Marketing, Item, Shipping)
+- Key types of Issues (B2C)
+- Numbers of Cancellations/Return
+- Shipment Capacity / Status
+- Profitable Products (view -> Finance)
+- ADS across Marketplaces with products investment breakdown
+
+Logistics:
+- Product on Shipping Status + Report
+- Products with Shipping Errors
+
+Customer Account:
+- General (Description filled by us) + Tier Level
+- Integration to Markeplaces
+- Billing / ADS Balance
+- Notifications
+- Security (TBD)
